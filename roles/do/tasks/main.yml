@@ -4,7 +4,7 @@
     state: present
     command: droplet
     name: mydroplet
-    api_token: {{production}}
+    api_token: {{token}}
     size_id: 2gb
     region_id: ams2
     image_id: fedora-19-x64
