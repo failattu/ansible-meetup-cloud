@@ -1,0 +1,14 @@
+---
+
+- name: Remove host
+  digital_ocean:
+    state: deleted
+    name: mydroplet
+    api_token: "{{token}}"
+    size_id: 512mb
+    id: {{id}}
+    region_id: ams2
+    image_id: ubuntu-14-04-x64
+    wait_timeout: 500
+  register: my_droplet
+
