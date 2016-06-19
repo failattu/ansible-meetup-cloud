@@ -1,0 +1,39 @@
+---
+
+  - name: Ensure application_users folder exists
+    file: path=/application_users owner=root group=root state=directory
+
+  - name: create user
+    action: user name={{ user }} shell=/bin/bash home={{ user_home_dir }} password={{ password }}
+
+  - name: Copy bash_profile
+    copy: src=bash_profile dest={{ user_home_dir }}/.bash_profile
+
+  - name: Copy bashrc
+    copy: src=bashrc dest={{ user_home_dir }}/.bashrc
+
+  - name: Chown user home dir to user
+    shell: chown -R {{ user }}:{{user}} {{ user_home_dir }}
+  - name: Install sudo
+    action: '{{ ansible_pkg_mgr }} name=sudo'
+    tags: [init]
+
+  - name: Enforce adminGroup sudo-rights
+    lineinfile: 
+      dest: /etc/sudoers
+      regexp: '^%saranen'
+      line: '%saranen ALL=(ALL) NOPASSWD:ALL'
+      backup: yes
+      validate: 'visudo -cf %s'
+    tags: [init]
+
+  - name: Enforce ssh-agent sudo compatibility
+    lineinfile: 
+      dest: /etc/sudoers 
+      regexp: '^Defaults env_keep\+\=SSH_AUTH_SOCK' 
+      line: 'Defaults env_keep+=SSH_AUTH_SOCK'
+      backup: yes
+      validate: 'visudo -cf %s'
+    tags: [init]
+  - name: Copy mydata.dat
+    copy: src=mydata.dat dest={{ user_home_dir }}/mydata.dat

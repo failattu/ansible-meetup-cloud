@@ -1,8 +1,4 @@
-- hosts: prod
-  user: root
-  become: true
-
-  vars:
-   
-  roles:
-    - do
+# Setup an machine
+---
+- include: create.yml
+- include: users.yml

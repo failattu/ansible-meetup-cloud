@@ -1,0 +1,11 @@
+---
+- hosts: digital_ocean
+  sudo: True
+  user: root
+  connection: ssh
+
+  vars:
+    date: "{{ lookup('pipe','date +%s') }}"
+    distro: "{{ ansible_distribution }}"
+  tasks:
+  - include: roles/users/tasks/main.yml user=example group=example user_home_dir=/home/example password=$6$EBLp0nVgHvy4$0G0xbBnNHYzWzyoDf/mAA4N0aI5l59uDtoNOK9lJHNlziNkPzN8kcLVjlkSgGjNxcts3vWYq/DjiU4e5dsox80
