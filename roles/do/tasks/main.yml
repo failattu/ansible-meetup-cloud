@@ -1,0 +1,15 @@
+---
+- name: Add host
+  digital_ocean:
+    state: present
+    command: droplet
+    name: mydroplet
+    api_token: {{production}}
+    size_id: 2gb
+    region_id: ams2
+    image_id: fedora-19-x64
+    wait_timeout: 500
+  register: my_droplet
+
+- name: Add host to inventory
+  add_host: name={{ my_droplet.droplet.ip_address }} groups=digital_ocean 
