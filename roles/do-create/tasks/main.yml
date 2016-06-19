@@ -24,8 +24,8 @@
 - name: Add host to inventory
   add_host:
     name="{{ my_droplet.droplet.ip_address }}"
-    groups=digital_ocean 
-    dropid= {{ my_droplet.droplet.id }}
--debug: "{{ my_droplet.droplet.id }}"
--debug: "{{ my_droplet.droplet.ip_address }}"
+    groups=digital_ocean
+
+- debug: msg="ID is {{ my_droplet.droplet.id }}"
+- debug: msg="IP is {{ my_droplet.droplet.ip_address }}"
 

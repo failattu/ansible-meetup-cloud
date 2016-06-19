@@ -1,6 +1,6 @@
 ---
 - hosts: digital_ocean
-  sudo: True
+  become: True
   user: root
   connection: ssh
 

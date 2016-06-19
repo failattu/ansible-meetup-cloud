@@ -7,10 +7,10 @@
     action: user name={{ user }} shell=/bin/bash home={{ user_home_dir }} password={{ password }}
 
   - name: Copy bash_profile
-    copy: src=bash_profile dest={{ user_home_dir }}/.bash_profile
+    copy: src=roles/users/files/bash_profile dest={{ user_home_dir }}/.bash_profile
 
   - name: Copy bashrc
-    copy: src=bashrc dest={{ user_home_dir }}/.bashrc
+    copy: src=roles/users/files/bashrc dest={{ user_home_dir }}/.bashrc
 
   - name: Chown user home dir to user
     shell: chown -R {{ user }}:{{user}} {{ user_home_dir }}
@@ -21,8 +21,8 @@
   - name: Enforce adminGroup sudo-rights
     lineinfile: 
       dest: /etc/sudoers
-      regexp: '^%saranen'
-      line: '%saranen ALL=(ALL) NOPASSWD:ALL'
+      regexp: '^%example'
+      line: '%example ALL=(ALL) NOPASSWD:ALL'
       backup: yes
       validate: 'visudo -cf %s'
     tags: [init]
@@ -36,4 +36,4 @@
       validate: 'visudo -cf %s'
     tags: [init]
   - name: Copy mydata.dat
-    copy: src=mydata.dat dest={{ user_home_dir }}/mydata.dat
+    copy: src=roles/users/files/mydata.dat dest={{ user_home_dir }}/mydata.dat
