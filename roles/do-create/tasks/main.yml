@@ -1,8 +1,16 @@
 ---
+- name: check my ssh-key
+  digital_ocean:
+    state: present
+    command: ssh
+    name: Debian Machine
+    ssh_pub_key: "{{pub_key}}"
+    api_token: "{{token}}"
 
 - name: Add host
   digital_ocean:
     state: present
+    ssh_key_ids: "{{ pub_key_id }}"
     command: droplet
     name: mydroplet
     api_token: "{{token}}"
@@ -18,5 +26,6 @@
     name="{{ my_droplet.droplet.ip_address }}"
     groups=digital_ocean 
     dropid= {{ my_droplet.droplet.id }}
-
+-debug: "{{ my_droplet.droplet.id }}"
+-debug: "{{ my_droplet.droplet.ip_address }}"
 
