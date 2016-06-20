@@ -21,8 +21,8 @@
   - name: Enforce adminGroup sudo-rights
     lineinfile: 
       dest: /etc/sudoers
-      regexp: '^%example'
-      line: '%example ALL=(ALL) NOPASSWD:ALL'
+      regexp: '^%{{ user }}'
+      line: '%{{ user }} ALL=(ALL) NOPASSWD:ALL'
       backup: yes
       validate: 'visudo -cf %s'
     tags: [init]

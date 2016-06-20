@@ -1,6 +1,5 @@
 - hosts: prod
   user: kalle
-
   vars:
    
   roles:
